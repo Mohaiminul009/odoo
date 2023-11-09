@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <menuitem
+            id="menu_students_root"
+            name="Students"
+            sequence="0"
+    />
+    <menuitem
+            id="submenu_students_info"
+            name="Students Info"
+            parent="menu_students_root"
+            sequence="0"
+    />
+    <menuitem
+            id="submenu_students_fees"
+            name="Student Fees"
+            parent="menu_students_root"
+            sequence="20"
+    />
+
+</odoo>

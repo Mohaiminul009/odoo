@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <!--Tree View-->
+    <record model="ir.ui.view" id="tree_compute_field">
+        <field name="name">Compute Fields</field>
+        <field name="model">compute_field</field>
+        <field name="arch" type="xml">
+            <tree> <!--to remove create and delete button from tree--> <!-- <tree create="0" delete="0"> -->
+                <field name="today"/>
+                <field name="date_of_birth"/>
+                <field name="age"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--Create Form-->
+    <record model="ir.ui.view" id="form_compute_field">
+        <field name="name">Compute Fields Form</field>
+        <field name="model">compute_field</field>
+        <field name="arch" type="xml">
+            <form>  <!--to remove edit, delete and duplicate button from tree--> <!-- <tree edit="0" delete="0" create="0"> -->
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="today"/>
+                            <field name="date_of_birth"/>
+                            <field name="age"/>
+                        </group>
+                    </group>
+                    <!--In-line-->
+                    <field name="line_ids">
+                        <tree>
+                            <field name="field_1"/>
+                            <field name="field_2"/>
+                            <field name="field_3"/>
+                        </tree>
+                    </field>
+                    <notebook>
+                        <page string="Comments">
+                            <group>
+                                <field name="html" placeholder="Enter your comment here.." options="{'collaborative': true, 'resizable': true}"/>
+                                <field name="cover" widget="image" class="oe_avatar"/>
+                            </group>
+                        </page>
+                        <page string="Invisible">
+                            <group>
+                                <field name="is_partner"/>
+                                <field name="description" attrs="{'invisible': [('is_partner', '!=', False)]}"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_compute_field" model="ir.actions.act_window">
+        <field name="name">Compute Field</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">compute_field</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create New!
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="submenu_compute_field"
+            name="Compute"
+            parent="submenu_students_fees"
+            sequence="30"
+            action="action_compute_field"
+    />
+</odoo>

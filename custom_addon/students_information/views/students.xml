@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <!--Search View-->
+    <record model="ir.ui.view" id="view_students_info_search">
+        <field name="name">student.info.search</field>
+        <field name="model">students_info</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Search"
+                       filter_domain="['|', '|', '|', '|', '|', ('name', 'ilike', self), ('Class', 'ilike', self), ('roll', 'ilike', self), ('shift', 'ilike', self), ('section', 'ilike', self), ('gender', 'ilike', self)]"/>
+                <field name="f_name"/>
+                <field name="m_name"/>
+                <field name="gender"/>
+                <field name="dob"/>
+                <field name="phone"/>
+                <field name="address"/>
+                <field name="shift"/>
+                <field name="Class"/>
+                <field name="section"/>
+                <field name="roll"/>
+                <field name="join_date"/>
+                <!-- filter -->
+                <filter name="filter_male" string="Male" domain="[('gender', '=', 'male')]"/>
+                <filter name="filter_female" string="Female" domain="[('gender', '=', 'female')]"/>
+                <separator/>
+                <filter name="filter_morning" string="Morning" domain="[('shift', '=', 'morning')]"/>
+                <filter name="filter_day" string="Day" domain="[('shift', '=', 'day')]"/>
+                <separator/>
+                <filter name="filter_archived" string="Archived" domain="[('active', '=', False)]"/>
+                <!--group by-->
+                <group expand="0" string="Group By">
+                    <filter string="Gender" name="group_by_gender" context="{'group_by':'gender'}"/>
+                    <filter string="Shift" name="group_by_shift" context="{'group_by':'shift'}"/>
+                    <filter string="Class" name="group_by_Class" context="{'group_by':'Class'}"/>
+                </group>
+                <!--sidebar search-->
+                <searchpanel>
+                    <field name="Class" enable_counters="1" icon="fa-users" select="multi"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    <!--Tree View-->
+    <record model="ir.ui.view" id="tree_students_info">
+        <field name="name">View Students</field>
+        <field name="model">students_info</field>
+        <field name="arch" type="xml">
+            <tree sample="1"
+                  multi_edit="1">  <!--decoration-warning="state == 'draft'" decoration-info="state  == 'in_progress'" decoration-success="state == 'done'" decoration-danger="state == 'cancel'"-->
+                <field name="name"/>
+                <field name="f_name"/>
+                <field name="m_name"/>
+                <field name="gender"/>
+                <field name="dob"/>
+                <field name="phone"/>
+                <field name="address"/>
+                <field name="shift"/>
+                <field name="Class"/>
+                <field name="section"/>
+                <field name="roll"/>
+                <field name="join_date"/>
+                <field name="state"
+                       widget="badge"
+                       decoration-warning="state == 'draft'"
+                       decoration-info="state  == 'in_progress'"
+                       decoration-success="state == 'done'"
+                       decoration-danger="state == 'cancel'"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--Kanban View-->
+    <record id="kanban_students_info" model="ir.ui.view">
+        <field name="name">View Students</field>
+        <field name="model">students_info</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="f_name"/>
+                <field name="m_name"/>
+                <field name="gender"/>
+                <field name="dob"/>
+                <field name="phone"/>
+                <field name="address"/>
+                <field name="shift"/>
+                <field name="Class"/>
+                <field name="section"/>
+                <field name="roll"/>
+                <field name="join_date"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <div class="row mb4">
+                                    <div class="col-4">
+                                        <field name="name"/>
+                                    </div>
+                                    <div class="col-4">
+                                        <field name="f_name"/>
+                                    </div>
+                                    <div class="col-4">
+                                        <field name="m_name"/>
+                                    </div>
+                                </div>
+                                <div class="row mb4">
+                                    <div class="col-4">
+                                        <field name="gender"/>
+                                    </div>
+                                    <div class="col-4">
+                                        <field name="dob"/>
+                                    </div>
+                                    <div class="col-4">
+                                        <field name="phone"/>
+                                    </div>
+                                </div>
+                                <div class="row mb4">
+                                    <div class="col-4">
+                                        <field name="address"/>
+                                    </div>
+                                    <div class="col-4">
+                                        <field name="shift"/>
+                                    </div>
+                                    <div class="col-4">
+                                        <field name="Class"/>
+                                    </div>
+                                </div>
+                                <div class="row mb4">
+                                    <div class="col-4">
+                                        <field name="section"/>
+                                    </div>
+                                    <div class="col-4">
+                                        <field name="roll"/>
+                                    </div>
+                                    <div class="col-4">
+                                        <field name="join_date"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!--Create Form-->
+    <record model="ir.ui.view" id="form_students_info">
+        <field name="name">Students Info</field>
+        <field name="model">students_info</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="%(students_information.action_students_fees)d" type="action" string="Fee" class="oe_highlight"/>
+                    <button name="action_draft" type="object" string="Draft" class="oe_highlight"/>  <!--states="in_progress, done, cancel"-->
+                    <button name="action_in_progress" type="object" string="In Progress" class="oe_highlight"/>  <!--states="draft, done, cancel"-->
+                    <button name="action_done" type="object" string="Done" class="oe_highlight"/>  <!--states="in_progress, draft, cancel"-->
+                    <button name="action_cancel" type="object" string="Cancel" class="oe_highlight" states="in_progress"/>  <!--states="in_progress, done, draft"-->
+                    <field name="state" widget="statusbar" nolabel="1" statusbar_visible="draft, in_progress, done, cancel"/> <!--options="{'clickable' : '1'}"-->
+                </header>
+                <sheet>
+                    <div>
+                        <h2>
+                            <field name="priority" widget="priority" class="mr-3"/>
+                        </h2>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="f_name"/>
+                            <field name="m_name"/>
+                            <field name="gender"/>
+                            <field name="dob"/>
+                            <field name="phone"/>
+                        </group>
+                        <group>
+                            <field name="address"/>
+                            <field name="shift"/>
+                            <field name="Class"/>
+                            <field name="section"/>
+                            <field name="roll"/>
+                            <field name="join_date"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <!--  chatter    -->
+                <div class="oe_chatter">
+                    <field name="activity_ids"/>
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_students_info" model="ir.actions.act_window">
+        <field name="name">Student Info</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">students_info</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create New!
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="submenu_students_view"
+            name="View All"
+            parent="submenu_students_info"
+            sequence="0"
+            action="action_students_info"
+    />
+
+</odoo>

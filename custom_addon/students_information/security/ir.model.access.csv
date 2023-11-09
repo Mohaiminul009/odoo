@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_students_info,account.students.info,model_students_info,,1,1,1,1
+access_students_fees,account.students.fees,model_students_fees,,1,1,1,1
+access_compute_field,account.compute.field,model_compute_field,,1,1,1,1
+access_test_model_line,account.test.model.line,model_test_model_line,,1,1,1,1

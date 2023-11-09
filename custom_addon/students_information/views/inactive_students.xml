@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="action_inactive_students_info" model="ir.actions.act_window">
+        <field name="name">Inactive Student</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">students_info</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="domain">[('active', '=', False)]</field>
+<!--        <field name="context">{'default_gender':'male'}</field>-->
+<!--        <field name="context">{'search_default_filter_morning':1}</field>-->
+<!--        <field name="context">{'search_default_filter_morning':1, 'search_default_group_by_gender':1}</field>-->
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create New
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="submenu_inactive_students"
+            name="Inactive"
+            parent="submenu_students_info"
+            action="action_inactive_students_info"
+            sequence="20"
+    />
+
+</odoo>
